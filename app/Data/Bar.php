@@ -1,19 +1,23 @@
 <?php
+
 namespace App\Data;
-use App\Data\Foo;
 
 class Bar
 {
     private Foo $foo;
 
-public function __construct(Foo $foo)
-{
-    $this->foo = $foo;
-}
-public function gbar(): string
-{
-return $this->foo->SayFoo() . ' and Bar';
-}
+    public function __construct(Foo $foo)
+    {
+        $this->foo = $foo;
+    }
 
+    public function bar(): string
+    {
+        return $this->foo->sayFoo() . ' and Bar';
+    }
 
+    public function getFoo(): Foo
+    {
+        return $this->foo;
+    }
 }
