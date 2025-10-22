@@ -37,7 +37,7 @@ class FacadeTest extends TestCase
       }
       public function testFacadeMock(): void
       {
-        config::shouldReceive('get')
+        Config::shouldReceive('get')
         ->with('contoh.author.first')
         ->andReturn('Danny Keren');
 
