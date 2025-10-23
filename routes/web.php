@@ -26,4 +26,18 @@ Route::get('/hello-world', function(){
     return view('hello.world', ['name' => 'Danny']);
 });
 
+Route::get('/product/{id}', function($productId){
+return "Product $productId";
+});
+
+Route::get('/product/{product}/items/{item}', function($productId,$itemId){
+return "Product $productId, Item $itemId";   //Route Parameter
+});
+
+
+Route::get('/categories/{id}', function($categoryId){
+    return "Category $categoryId";
+
+})->where('id', '[0-9]+');
+
 

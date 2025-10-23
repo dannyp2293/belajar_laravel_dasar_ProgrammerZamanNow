@@ -20,4 +20,40 @@ class ViewTest extends TestCase
        ->assertSeeText('Hello Danny');
     }
     public function testViewNested(): void
+    {
+        $this->get('/hello-world')
+       ->assertSeeText('World Danny');
+    }
+   public function Testtemplate():void
+    {
+        $this->view('hello', ['name'=>'Danny'])
+        ->assertSeeText('Hello Danny');
+
+         $this->view('hello.world', ['name'=>'Danny'])
+        ->assertSeeText('World Danny');
+    }
+
+    public function testRouteParameter():void{
+        $this->get('/product/1')
+        ->assertSeeText('Product 1');
+
+        $this->get('/product/2')
+        ->assertSeeText('Product 2');
+
+         $this->get('/product/1/items/XXX')
+        ->assertSeeText("Product 1, Item XXX");
+
+         $this->get('/product/2/items/YYY')
+        ->assertSeeText("Product 2, Item YYY");
+    }
+    public function testRouteParameterRegex():void
+    {
+        $this->get('/categories/100')
+        ->assertSeeText('Category 100');
+
+        $this->get('/categories/danny')
+        ->assertSeeText('404 by Programmer Zaman Now');
+
+    }
+
 }
