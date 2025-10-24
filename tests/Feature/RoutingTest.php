@@ -33,4 +33,30 @@ class RoutingTest extends TestCase
          $this->get('/tidakadaada')
         ->assertRedirect("404 by Programmer Zaman Now");
     }
+    public function testRoutesParameter():void
+    {
+        $this->get('/users/Danny')
+        ->assertSeeText('User Danny');
+
+        $this->get('/users/')
+        ->assertSeeText('User 404');
+
+    }
+
+    public function testRoutesConflict():void
+    {
+        $this->get('/conflict/budi')
+        ->assertSeeText('Conflict budi');
+
+        $this->get('/conflict/danny')
+        ->assertSeeText("Conflict Danny Parlin Butar Butar");
+    }
+     public function testNameRoute():void
+    {
+        $this->get('/product/12345')
+        ->assertSeeText('Link http://localhost/products/12345');
+
+             $this->get('/product-redirect/12345')
+        ->assertSeeText('/productc/12345');
+    }
 }

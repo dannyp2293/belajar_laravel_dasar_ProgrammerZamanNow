@@ -55,5 +55,14 @@ class ViewTest extends TestCase
         ->assertSeeText('404 by Programmer Zaman Now');
 
     }
+     public function testNameRoute():void
+    {
+        $this->get('/produk/12345')
+        ->assertSeeText('Link http://localhost/products/12345');
+
+             $this->get('/produk-redirect/12345')
+        ->assertSeeText('/productc/12345');
+    }
+
 
 }
