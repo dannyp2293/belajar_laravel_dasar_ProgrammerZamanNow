@@ -65,9 +65,20 @@ Route::get('/controller/hello/{name}', [\App\Http\Controllers\HelloController::c
 
 
 
-Route::get('/input/hello', [\App\Http\Controllers\InputController::class, 'hello']);
-Route::post('/input/hello', [\App\Http\Controllers\InputController::class, 'hello']);
-Route::post('/input/hello/first', [\App\Http\Controllers\InputController::class, 'helloFirstName']);
+
+// Route::get('/input/hello', [\App\Http\Controllers\InputController::class, 'hello']);
+// Route::post('/input/hello', [\App\Http\Controllers\InputController::class, 'hello']);
+// Route::post('/input/hello/first', [\App\Http\Controllers\InputController::class, 'helloFirstName']);
+// Route::post('/input/hello/input', [\App\Http\Controllers\InputController::class, 'helloInput']);
+
+Route::controller(InputController::class)->group(function () {
+    Route::get('/input/hello', 'hello');
+    Route::post('/input/hello', 'hello');
+    Route::post('/input/hello/first', 'helloFirstName');
+    Route::post('/input/hello/input', 'helloInput');
+    Route::post('/input/hello/array', 'helloArray');
+     Route::post('/input/type', 'inputType');
+});
 
 
 

@@ -17,5 +17,27 @@ public function helloFirstName(Request $request): string
     $firstName = $request->input('name.first');
     return "Hello $firstName";
 }
+public function helloInput(Request $request): string{
+   $input = $request->input();
+   return json_encode($input);
+}
+
+public function arrayInput(Request $request): string{
+   $names = $request->input("products.*.name");
+   return json_encode($names);
+}
+public function inputType(Request $request): string
+{
+    $name = $request->input('name');
+    $married = $request->boolean('married');
+    $birtDate = $request->date('birth_date', 'Y-m-d');
+
+    return json_encode([
+        'name' => $name,
+        'married'=>$married,
+        'birth_date' => $birtDate->format('Y-m-d'),
+
+    ]);
+}
 
 }
