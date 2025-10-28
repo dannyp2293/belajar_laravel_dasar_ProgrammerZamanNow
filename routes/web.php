@@ -77,7 +77,10 @@ Route::controller(InputController::class)->group(function () {
     Route::post('/input/hello/first', 'helloFirstName');
     Route::post('/input/hello/input', 'helloInput');
     Route::post('/input/hello/array', 'helloArray');
-     Route::post('/input/type', 'inputType');
+    Route::post('/input/type', 'inputType');
+    Route::post('/input/filter/only', 'filterOnly');
+    Route::post('/input/filter/except', 'filterExcept');
+    Route::post('/input/filter/merge', 'filterMerge');
 });
 
 

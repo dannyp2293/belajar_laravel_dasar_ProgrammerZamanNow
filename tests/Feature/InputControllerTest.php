@@ -58,7 +58,53 @@ class InputControllerTest extends TestCase
         $this->post('/input/type',
         [
             'name' => 'Budi',
+            'married' => 'true',
+            'birth_date' => '1998-10-10'
+        ])->assertSeeText('Budi')->assertSeeText("true")->assertSeeText("1998-10-10");
+    }
 
+    //filter Request INput
+    public function testfilterOnly()
+    {
+        $this->post('/input/filter/only',[
+        "name" =>
+        [
+          "first"  => "Danny",
+          "middle" => "Parlin",
+          "last"   => "Butar-Butar"
+        ]
         ])
+            ->assertSeeText("Danny")
+            ->assertSeeText("Parlin")
+            ->assertSeeText("Butar-Butar");
+    }
+    public function testfilterExcept()
+    {
+        $this->post('/input/filter/only',[
+        "name" =>
+        [
+          "username"  => "Danny",
+          "password" => "rahasia",
+          "admin"   => "true"
+        ]
+        ])
+            ->assertSeeText("Danny")
+            ->assertSeeText("rahasia")
+            ->assertSeeText("admin");
+    }
+       public function testfilterMerge()
+    {
+        $this->post('/input/filter/merge',[
+        "name" =>
+        [
+          "username"  => "Danny",
+          "password" => "rahasia",
+          "admin"   => "true"
+        ]
+        ])
+            ->assertSeeText("Danny")
+            ->assertSeeText("rahasia")
+            ->assertSeeText("admin")
+            ->assertSeeText("false");
     }
 }
