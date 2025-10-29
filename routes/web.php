@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InputController;
+use App\Http\Controllers\FileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -66,10 +67,7 @@ Route::get('/controller/hello/{name}', [\App\Http\Controllers\HelloController::c
 
 
 
-// Route::get('/input/hello', [\App\Http\Controllers\InputController::class, 'hello']);
-// Route::post('/input/hello', [\App\Http\Controllers\InputController::class, 'hello']);
-// Route::post('/input/hello/first', [\App\Http\Controllers\InputController::class, 'helloFirstName']);
-// Route::post('/input/hello/input', [\App\Http\Controllers\InputController::class, 'helloInput']);
+
 
 Route::controller(InputController::class)->group(function () {
     Route::get('/input/hello', 'hello');
@@ -83,6 +81,7 @@ Route::controller(InputController::class)->group(function () {
     Route::post('/input/filter/merge', 'filterMerge');
 });
 
+Route::post('/file/upload', [\App\Http\Controllers\FileController::class,'upload']);
 
 
 
