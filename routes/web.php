@@ -83,6 +83,9 @@ Route::controller(InputController::class)->group(function () {
 
 Route::post('/file/upload', [\App\Http\Controllers\FileController::class,'upload']);
 
+Route::get('/response/hello', [\App\Http\Controllers\ResponseController::class,'response']);
+Route::get('/response/header', [\App\Http\Controllers\ResponseController::class,'header']);
+
 
 
 
