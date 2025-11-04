@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InputController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\RedirectController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -86,6 +87,20 @@ Route::post('/file/upload', [\App\Http\Controllers\FileController::class,'upload
 Route::get('/response/hello', [\App\Http\Controllers\ResponseController::class,'response']);
 Route::get('/response/header', [\App\Http\Controllers\ResponseController::class,'header']);
 
+Route::get('/cookie/set', [\App\Http\Controllers\CokiesCOntroller::class,'createCookie']);
+Route::get('/cookie/get', [\App\Http\Controllers\CokiesCOntroller::class,'getCookie']);
+Route::get('/cookie/clear', [\App\Http\Controllers\CokiesCOntroller::class,'clearCookie']);
+
+Route::get('/redirect/from',[RedirectController::class, 'redirectFrom']);
+Route::get('/redirect/to',[RedirectController::class, 'redirectTo']);
+Route::get('/redirect/name', [RedirectController::class,'redirectName']);
+Route::get('/redirect/name/{name}', [RedirectController::class,'redirectHello'])
+->name('redirect-hello');
+
+Route::get('/redirect/action', [RedirectController::class,'redirectAction']);
+Route::get('/redirect/away', [RedirectController::class,'redirectAway']);
 
 
+//midlleware
+Route::get('/tes', fn() => 'Hello')->middleware('contoh');
 
