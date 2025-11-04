@@ -11,9 +11,16 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->alias([
-            'contoh' => \App\Http\Middleware\ContohMiddleware::class,
-        ]);
+         // Alias middleware
+    $middleware->alias([
+        'contoh' => \App\Http\Middleware\ContohMiddleware::class,
+    ]);
+
+            // Group
+    $middleware->group('Pbb', [
+        \App\Http\Middleware\ContohMiddleware::class,
+        // middleware lain kalau ada
+    ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

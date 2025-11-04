@@ -102,5 +102,13 @@ Route::get('/redirect/away', [RedirectController::class,'redirectAway']);
 
 
 //midlleware
-Route::get('/tes', fn() => 'Hello')->middleware('contoh');
+Route::middleware('contoh')->get('/middleware/api', function () {
+    return "OK";
+});
+
+Route::middleware('Pbb')->get('/cek-pbb', function () {
+    return "Route PBB OK";
+});
+
+
 

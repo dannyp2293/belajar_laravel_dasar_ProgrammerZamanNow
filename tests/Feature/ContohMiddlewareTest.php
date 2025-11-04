@@ -13,7 +13,7 @@ class ContohMiddlewareTest extends TestCase
      */
     public function testMiddlewareInvalid(): void
     {
-        $this->get('/midlleware/api')
+        $this->get('/middleware/api')
         ->assertStatus(401)
         ->assertSeeText("Access Denied");
     }

@@ -15,11 +15,11 @@ class ContohMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $apiKey = $request->headers('X-API-KEY');
+        $apiKey = $request->header('X-API-KEY');
         if($apiKey === 'PZN'){
             return $next($request);
         }else {
-            return response("Acces Denied", 401);
+            return response("Access Denied", 401);
         }
 
     }
