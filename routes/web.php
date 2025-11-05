@@ -112,3 +112,10 @@ Route::middleware('Pbb')->get('/cek-pbb', function () {
 
 
 
+Route::get('/movie', function () {
+    return "Selamat nonton film dewasa!";
+})->middleware('cekUmur');
+
+Route::get('/underage', function () {
+    return "Maaf, kamu belum cukup umur.";
+});
