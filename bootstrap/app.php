@@ -14,9 +14,12 @@ return Application::configure(basePath: dirname(__DIR__))
          // Alias middleware
     $middleware->alias([
         'contoh' => \App\Http\Middleware\ContohMiddleware::class,
-        'cekUmur' => \App\Http\Middleware\CekUmur::class
+        'cekUmur' => \App\Http\Middleware\CekUmur::class,
+        'premium' => \App\Http\Middleware\EnsurePremium::class
+
 
     ]);
+
 
 
 

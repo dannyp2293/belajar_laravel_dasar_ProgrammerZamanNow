@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InputController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\RedirectController;
+use Illuminate\Support\Carbon;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -66,10 +68,6 @@ Route::get('/controller/hello/{name}', [\App\Http\Controllers\HelloController::c
 
 
 
-
-
-
-
 Route::controller(InputController::class)->group(function () {
     Route::get('/input/hello', 'hello');
     Route::post('/input/hello', 'hello');
@@ -119,3 +117,5 @@ Route::get('/movie', function () {
 Route::get('/underage', function () {
     return "Maaf, kamu belum cukup umur.";
 });
+
+
