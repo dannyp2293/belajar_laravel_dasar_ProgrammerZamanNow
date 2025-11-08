@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InputController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\RedirectController;
 use Illuminate\Support\Carbon;
 
@@ -82,8 +83,15 @@ Route::controller(InputController::class)->group(function () {
 
 Route::post('/file/upload', [\App\Http\Controllers\FileController::class,'upload']);
 
-Route::get('/response/hello', [\App\Http\Controllers\ResponseController::class,'response']);
-Route::get('/response/header', [\App\Http\Controllers\ResponseController::class,'header']);
+Route::prefix("/response/type")->group(function () {
+Route::get('/hello', [\App\Http\Controllers\ResponseController::class,'hello']);
+Route::get('/header', [\App\Http\Controllers\ResponseController::class,'header']);
+});
+
+// Route::get('/view', [\App\Http\Controllers\ResponseController::class,'responseView']);
+// Route::get('/json', [\App\Http\Controllers\ResponseController::class,'responseJson']);
+// Route::get('/file', [\App\Http\Controllers\ResponseController::class,'responseFile']);
+// Route::get('/download', [\App\Http\Controllers\ResponseController::class,'responseDownload']);
 
 Route::get('/cookie/set', [\App\Http\Controllers\CokiesCOntroller::class,'createCookie']);
 Route::get('/cookie/get', [\App\Http\Controllers\CokiesCOntroller::class,'getCookie']);
@@ -100,22 +108,41 @@ Route::get('/redirect/away', [RedirectController::class,'redirectAway']);
 
 
 //midlleware
-Route::middleware('contoh')->get('/middleware/api', function () {
-    return "OK";
+// Route::middleware('contoh')->get('/middleware/api', function () {
+//     return "OK";
+// });
+
+// Route::middleware('Pbb')->get('/cek-pbb', function () {
+//     return "Route PBB OK";
+// });
+
+Route::middleware('contoh')->prefix('/middleware')->group(function () {
+    Route::get('/api', function () {
+        return "OK";
+    });
+
+    Route::get('/group', function () {
+        return "GROUP";
+    });
+
+    Route::middleware('Pbb')->get('/cek-pbb', function () {
+        return "Route PBB OK";
+    });
 });
 
-Route::middleware('Pbb')->get('/cek-pbb', function () {
-    return "Route PBB OK";
-});
 
+// Challenge Level 3 – Role-Based / Premium Access Middleware
+Route::get('/admin', function () {
+    return 'Halo Admin!';
+})->middleware('role:admin');
 
+Route::get('/user', function () {
+    return 'Halo User!';
+})->middleware('role:user');
 
-Route::get('/movie', function () {
-    return "Selamat nonton film dewasa!";
-})->middleware('cekUmur');
+Route::get('/premium-content', function () {
+    return 'Selamat datang di konten premium!';
+})->middleware('premium');
 
-Route::get('/underage', function () {
-    return "Maaf, kamu belum cukup umur.";
-});
-
-
+Route::get('/form', [FormController::class, 'form']);
+Route::post('/form', [FormController::class, 'submitForm']);
