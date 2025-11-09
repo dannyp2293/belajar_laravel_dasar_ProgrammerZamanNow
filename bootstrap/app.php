@@ -15,8 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
     $middleware->alias([
         'contoh' => \App\Http\Middleware\ContohMiddleware::class,
         'cekUmur' => \App\Http\Middleware\CekUmur::class,
-        'premium' => \App\Http\Middleware\CheckPremium::class,
-        'role' => \App\Http\Middleware\CheckRole::class,
+        'premium' => \App\Http\Middleware\EnsurePremium::class,
+        'role' => \App\Http\Middleware\EnsureRole::class,
+
 
 
     ]);

@@ -5,11 +5,13 @@ use App\Http\Controllers\InputController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\RedirectController;
+use App\Http\Controllers\UserControllerUrlGenerations;
 use Illuminate\Support\Carbon;
+use App\Http\Controllers\UserControllerSession;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::get('/pzn', function(){
@@ -58,7 +60,7 @@ Route::get('/conflict/{name}', function ($name){
 return "Conflict $name";
 });
 Route::get('/product/{id}', function($id){
-    $link = route('product(product.detail', ['id'=> $id]);
+    $link = route('product.detail', ['id'=> $id]);
     return "Link $link";
 });
 Route::get('/product-redirect/{id}', function($id){
@@ -146,3 +148,45 @@ Route::get('/premium-content', function () {
 
 Route::get('/form', [FormController::class, 'form']);
 Route::post('/form', [FormController::class, 'submitForm']);
+
+
+Route::get('/profile', [UserControllerUrlGenerations::class, 'profile'])->name('profile');
+
+Route::get('/user/{id}', [UserControllerUrlGenerations::class, 'show'])->name('user.show');
+
+Route::get('/user/{id}/edit', [UserControllerUrlGenerations::class, 'edit'])->name('user.edit');
+
+//session
+Route::get('/set-session', function (Request $request) {
+    // Simpan data ke session
+    $request->session()->put('nama', 'Danny Parlin');
+    $request->session()->put('role', 'Programmer');
+
+    return "Session sudah diset!";
+});
+
+Route::get('/get-session', function (Request $request) {
+    // Ambil data dari session
+    $nama = $request->session()->get('nama');
+    $role = $request->session()->get('role');
+
+    return "Nama: $nama | Role: $role";
+});
+
+Route::get('/hapus-session', function (Request $request) {
+    // Hapus satu nilai session
+    $request->session()->forget('nama');
+
+    return "Session nama sudah dihapus!";
+});
+
+// Controller atau Route
+Route::get('/flash', function () {
+    session()->flash('success', 'Data berhasil disimpan!');
+    return redirect('/show-flash');
+});
+
+Route::get('/show-flash', function () {
+    return view('flash');
+});
+
