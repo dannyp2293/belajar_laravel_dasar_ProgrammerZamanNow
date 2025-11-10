@@ -1,10 +1,11 @@
 <?php
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InputController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\RedirectController;
+use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserControllerUrlGenerations;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\UserControllerSession;
@@ -59,10 +60,10 @@ Route::get('/conflict/danny', function(){
 Route::get('/conflict/{name}', function ($name){
 return "Conflict $name";
 });
-Route::get('/product/{id}', function($id){
-    $link = route('product.detail', ['id'=> $id]);
-    return "Link $link";
-});
+// Route::get('/product/{id}', function($id){
+//     $link = route('product.detail', ['id'=> $id]);
+//     return "Link $link";
+// });
 Route::get('/product-redirect/{id}', function($id){
     return redirect()->route('product.detail', ['id' => $id]);
 });
@@ -188,5 +189,12 @@ Route::get('/flash', function () {
 
 Route::get('/show-flash', function () {
     return view('flash');
+});
+Route::get('/session/create', [SessionController::class, 'createSession']);
+Route::get('/session/get', [SessionController::class, 'getSession']);
+
+
+Route::get('/error/sample', function(){
+    throw new Exception("Sample Error");
 });
 
